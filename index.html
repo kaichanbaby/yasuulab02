@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安浦クイズゲーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- スコアとライフ表示 -->
+    <div id="scoreDisplay" class="hidden">スコア: 0</div>
+    <div id="lifeDisplay" class="hidden">ライフ: 3</div>
+
+    <!-- タイトル画面 -->
+    <div id="titleScreen" class="container">
+        <h1 class="title">安浦クイズゲーム</h1>
+        <button id="startButton" class="button">スタート</button>
+        <button id="rankingButton" class="button">ランキング</button>
+    </div>
+
+    <!-- 難易度選択画面 -->
+    <div id="difficultyScreen" class="container hidden">
+        <h2>難易度を選んでください</h2>
+        <button id="easyButton" class="button">簡単</button>
+        <button id="normalButton" class="button">普通</button>
+        <button id="hardButton" class="button">難しい</button>
+    </div>
+
+    <!-- クイズ画面 -->
+    <div id="quizScreen" class="container hidden">
+        <h2 id="question"></h2>
+        <div id="choices"></div>
+    </div>
+
+    <!-- ランキング画面 -->
+    <div id="rankingScreen" class="container hidden">
+        <h2>ランキング</h2>
+        <table id="rankingTable">
+            <thead>
+                <tr>
+                    <th>順位</th>
+                    <th>名前</th>
+                    <th>スコア</th>
+                </tr>
+            </thead>
+            <tbody id="rankingBody"></tbody>
+        </table>
+        <button id="backToTitleButton" class="button">タイトルへ戻る</button>
+    </div>
+
+    <!-- タイマー表示用のキャンバス -->
+    <div class="container">
+        <canvas id="timerCanvas" width="200" height="200"></canvas>
+    </div>
+
+    <!-- 音声の追加 -->
+    <audio id="buttonClickSound" src="決定ボタンを押す3.mp3"></audio>  <!-- 音声ファイルのパス -->
+
+    <script src="javasprct.js"></script>
+
+    <script>
+        // 音声を再生する関数
+        function playButtonClickSound() {
+            const sound = document.getElementById("buttonClickSound");
+            sound.currentTime = 0;  // 音声の再生位置を最初に戻す
+            sound.play();
+        }
+
+        // スタートボタンのクリックイベントリスナー
+        document.getElementById('startButton').addEventListener('click', () => {
+            playButtonClickSound(); // 音を鳴らす
+            showDifficultyScreen();  // 難易度選択画面を表示
+        });
+
+        // ランキングボタンのクリックイベントリスナー
+        document.getElementById('rankingButton').addEventListener('click', () => {
+            playButtonClickSound(); // 音を鳴らす
+            showRanking(); // ランキング画面を表示
+        });
+
+        // 難易度選択ボタンのクリックイベント
+        document.getElementById('easyButton').addEventListener('click', () => {
+            playButtonClickSound(); // 音を鳴らす
+            startQuiz("簡単"); // 簡単なクイズを開始
+        });
+
+        document.getElementById('normalButton').addEventListener('click', () => {
+            playButtonClickSound(); // 音を鳴らす
+            startQuiz("普通"); // 普通のクイズを開始
+        });
+
+        document.getElementById('hardButton').addEventListener('click', () => {
+            playButtonClickSound(); // 音を鳴らす
+            startQuiz("難しい"); // 難しいクイズを開始
+        });
+
+        document.getElementById('backToTitleButton').addEventListener('click', () => {
+            playButtonClickSound(); // 音を鳴らす
+            showTitleScreen(); // タイトル画面に戻る
+        });
+    </script>
+</body>
+</html>
